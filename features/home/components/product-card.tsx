@@ -18,7 +18,7 @@ export function ProductCard({ product }: ProductCardProps) {
           src={product.imageSrc}
           alt={title}
           fill
-          sizes="(max-width: 700px) 92vw, (max-width: 1000px) 45vw, 29vw"
+          sizes="(max-width: 700px) 92vw, (max-width: 1000px) 45vw, 417px"
         />
       </div>
       <div className={styles.productInfo}>

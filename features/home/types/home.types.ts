@@ -1,7 +1,6 @@
 export interface NavigationItem {
   readonly label: string;
   readonly href: string;
-  readonly active?: boolean;
 }
 
 export interface HeroContent {
@@ -58,6 +57,7 @@ export interface NewsletterContent {
 
 export interface FooterLink {
   readonly label: string;
+  readonly href: string;
   readonly badge?: string;
   readonly external?: boolean;
 }

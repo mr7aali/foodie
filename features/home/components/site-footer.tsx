@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type {
   FooterColumn,
   NewsletterContent,
@@ -11,8 +12,8 @@ interface SiteFooterProps {
 
 export function SiteFooter({ columns, newsletter }: SiteFooterProps) {
   return (
-    <footer className={styles.footer} id="contact">
-      <div className={styles.newsletter}>
+    <footer className={styles.footer}>
+      <div className={styles.newsletter} id="newsletter">
         <div>
           <h2>
             {newsletter.title} <span>{newsletter.accent}</span>
@@ -37,11 +38,16 @@ export function SiteFooter({ columns, newsletter }: SiteFooterProps) {
           <div key={column.title}>
             <h3>{column.title}</h3>
             {column.links.map((link) => (
-              <a href="#" key={link.label}>
+              <Link
+                href={link.href}
+                key={link.label}
+                target={link.external ? "_blank" : undefined}
+                rel={link.external ? "noreferrer" : undefined}
+              >
                 {link.label}
                 {link.badge && <span>{link.badge}</span>}
                 {link.external && <b>↗</b>}
-              </a>
+              </Link>
             ))}
           </div>
         ))}
@@ -49,11 +55,11 @@ export function SiteFooter({ columns, newsletter }: SiteFooterProps) {
 
       <div className={styles.footerBottom}>
         <nav aria-label="Legal">
-          <a href="#">English</a>
-          <a href="#">Privacy</a>
-          <a href="#">Legal</a>
+          <Link href="/">English</Link>
+          <Link href="/contact">Privacy</Link>
+          <Link href="/contact">Legal</Link>
         </nav>
-        <p>© 2023 Cadet UI. All Rights Reserved.</p>
+        <p>© 2026 Foodie Restaurant. All Rights Reserved.</p>
       </div>
     </footer>
   );

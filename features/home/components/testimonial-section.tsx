@@ -20,7 +20,7 @@ export function TestimonialSection({ content }: TestimonialSectionProps) {
               src={content.reviewerImageSrc}
               alt={content.reviewerName}
               fill
-              sizes="(min-width: 1441px) 5.3vw, 76px"
+              sizes="76px"
             />
           </span>
           <span>
@@ -55,7 +55,7 @@ export function TestimonialSection({ content }: TestimonialSectionProps) {
           src={content.chefImageSrc}
           alt="Chef giving an okay hand sign"
           fill
-          sizes="(max-width: 800px) 90vw, 41vw"
+          sizes="(max-width: 800px) 90vw, 590px"
         />
       </div>
     </section>

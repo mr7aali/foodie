@@ -15,7 +15,7 @@ export function WhyChooseUsSection({ items }: WhyChooseUsSectionProps) {
           src="/assets/design-image-9.png"
           alt="Grilled chicken with a fresh garden salad"
           fill
-          sizes="(max-width: 800px) 100vw, 40.2vw"
+          sizes="(max-width: 800px) 100vw, 578px"
         />
       </div>
       <div className={styles.whyCopy}>

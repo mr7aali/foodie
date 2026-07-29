@@ -30,7 +30,7 @@ export function HeroSection({ content }: HeroSectionProps) {
           alt="Smiling woman holding a slice of pizza"
           fill
           priority
-          sizes="(max-width: 800px) 92vw, 41vw"
+          sizes="(max-width: 800px) 92vw, 587px"
         />
 
         <div className={`${styles.floatingCard} ${styles.deliveryCard}`}>
@@ -49,7 +49,7 @@ export function HeroSection({ content }: HeroSectionProps) {
               src="/assets/design-image-2.png"
               alt=""
               fill
-              sizes="(min-width: 1441px) 4.1vw, 59px"
+              sizes="59px"
             />
           </span>
           <span>

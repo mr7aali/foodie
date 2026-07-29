@@ -10,18 +10,18 @@ import type {
 } from "../types/home.types";
 
 export const navigationItems: readonly NavigationItem[] = [
-  { label: "Home", href: "#home", active: true },
-  { label: "Our Menu", href: "#menu" },
-  { label: "Foods", href: "#foods" },
-  { label: "About us", href: "#about" },
-  { label: "Contact us", href: "#contact" },
+  { label: "Home", href: "/" },
+  { label: "Our Menu", href: "/menu" },
+  { label: "Foods", href: "/foods" },
+  { label: "About us", href: "/about" },
+  { label: "Contact us", href: "/contact" },
 ];
 
 export const heroContent: HeroContent = {
   description:
     "Food is what we eat to stay alive and healthy. It comes in many different forms and flavors, from fruits and vegetables to meats and grains.",
   ctaLabel: "Order Now",
-  ctaHref: "#menu",
+  ctaHref: "/menu",
   customerName: "Ali Ahmad",
   rating: "4.5",
   likes: "1k Likes",
@@ -38,7 +38,7 @@ export const featureItems: readonly FeatureItem[] = [
       "random text",
     ],
     linkLabel: "Learn More",
-    linkHref: "#foods",
+    linkHref: "/foods",
   },
   {
     id: "delivery",
@@ -50,7 +50,7 @@ export const featureItems: readonly FeatureItem[] = [
       "random text",
     ],
     linkLabel: "Learn More",
-    linkHref: "#foods",
+    linkHref: "/foods",
     accent: true,
   },
   {
@@ -63,7 +63,7 @@ export const featureItems: readonly FeatureItem[] = [
       "random text",
     ],
     linkLabel: "Learn More",
-    linkHref: "#foods",
+    linkHref: "/foods",
   },
   {
     id: "ordering",
@@ -75,7 +75,7 @@ export const featureItems: readonly FeatureItem[] = [
       "random text",
     ],
     linkLabel: "Learn More",
-    linkHref: "#foods",
+    linkHref: "/foods",
   },
 ];
 
@@ -170,53 +170,66 @@ export const newsletterContent: NewsletterContent = {
 
 export const footerColumns: readonly FooterColumn[] = [
   {
-    title: "Product & Service",
+    title: "Our Menu",
     links: [
-      { label: "Products" },
-      { label: "Services" },
-      { label: "Appliances" },
-      { label: "Storage", badge: "New" },
-      { label: "Lifestyle", external: true },
+      { label: "Full Menu", href: "/menu" },
+      { label: "Meal Prep Plans", href: "/meal-prep" },
+      { label: "Breakfast", href: "/foods#breakfast" },
+      { label: "Main Dishes", href: "/foods#mains" },
+      { label: "Desserts", href: "/foods#desserts" },
+      { label: "Drinks", href: "/menu#drinks" },
     ],
   },
   {
-    title: "Shop Now",
+    title: "Visit Foodie",
     links: [
-      { label: "Offers" },
-      { label: "Promos" },
-      { label: "Online Shop FAQ" },
-      { label: "Business Offer", badge: "New" },
-      { label: "Student Offer", external: true },
+      { label: "Reservations", href: "/contact#reservation" },
+      { label: "Location", href: "/contact#location" },
+      { label: "Opening Hours", href: "/contact#hours" },
+      { label: "Private Dining", href: "/contact" },
+      { label: "Group Bookings", href: "/contact", badge: "New" },
     ],
   },
   {
-    title: "Support",
+    title: "About Foodie",
     links: [
-      { label: "Contact" },
-      { label: "Email Support", external: true },
-      { label: "Live Chat", external: true },
-      { label: "Phone Support" },
-      { label: "Community", external: true },
+      { label: "Our Story", href: "/about" },
+      { label: "Our Kitchen", href: "/about#kitchen" },
+      { label: "Sourcing", href: "/about#sourcing" },
+      { label: "Our Values", href: "/about#values" },
+      { label: "Careers", href: "/contact" },
     ],
   },
   {
-    title: "Account",
+    title: "Help",
     links: [
-      { label: "My Products" },
-      { label: "Orders" },
-      { label: "Wishlist" },
-      { label: "Service", badge: "New" },
-      { label: "Rewards", external: true },
+      { label: "Contact Us", href: "/contact" },
+      { label: "Allergens", href: "/contact#faq" },
+      { label: "Dietary Requests", href: "/contact#faq" },
+      { label: "FAQs", href: "/contact#faq" },
+      { label: "Accessibility", href: "/contact" },
     ],
   },
   {
-    title: "About",
+    title: "Follow",
     links: [
-      { label: "Company Info" },
-      { label: "Brand Guidelines" },
-      { label: "Careers" },
-      { label: "Investors", badge: "New", external: true },
-      { label: "About Us", external: true },
+      {
+        label: "Instagram",
+        href: "https://www.instagram.com/",
+        external: true,
+      },
+      {
+        label: "Facebook",
+        href: "https://www.facebook.com/",
+        external: true,
+      },
+      {
+        label: "TikTok",
+        href: "https://www.tiktok.com/",
+        external: true,
+      },
+      { label: "Newsletter", href: "#newsletter" },
+      { label: "Press enquiries", href: "/contact" },
     ],
   },
 ];

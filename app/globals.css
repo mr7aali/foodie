@@ -15,17 +15,12 @@
 }
 
 html {
-  /*
-   * The Figma canvas is 1440px wide. One rem stays equal to one pixel through
-   * the original desktop size, then grows with the viewport on larger screens.
-   */
-  font-size: max(1px, calc(100vw / 1440));
   scroll-behavior: smooth;
 }
 
 body {
   margin: 0;
-  background: #fff;
+  background: #fffaf5;
   color: var(--ink);
 }
 
