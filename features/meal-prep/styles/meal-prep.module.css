@@ -556,14 +556,31 @@
 }
 
 .dayTabs .activeDay {
-  border-color: var(--primary);
-  background: var(--primary);
-  box-shadow: 0 7px 16px rgba(240, 51, 40, 0.18);
-  color: #fff;
+  border-color: #2d2d2d;
+  box-shadow: inset 0 0 0 1px #2d2d2d;
+  color: #292929;
 }
 
 .dayTabs .activeDay small {
-  color: rgba(255, 255, 255, 0.76);
+  color: #777;
+}
+
+.dayTabs .completedDay {
+  border-color: #74bc6f;
+  background: #eaf8e8;
+  box-shadow: none;
+  color: #267226;
+}
+
+.dayTabs .completedDay small {
+  color: #4f9250;
+}
+
+.dayTabs .activeDay.completedDay {
+  border-color: #318d31;
+  box-shadow:
+    inset 0 0 0 1px #318d31,
+    0 7px 16px rgba(49, 141, 49, 0.14);
 }
 
 .activeDayHeading {
@@ -591,6 +608,152 @@
   font-weight: 900;
 }
 
+.mealTypeSection {
+  margin-top: 22px;
+  padding: 18px;
+  border: 1px solid #ece5de;
+  border-radius: 17px;
+  background: #faf8f5;
+}
+
+.mealTypeHeading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.mealTypeHeading > div {
+  display: grid;
+  gap: 3px;
+}
+
+.mealTypeHeading strong {
+  color: #343434;
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.mealTypeHeading span {
+  color: #858585;
+  font-size: 11px;
+}
+
+.mealTypeHeading > small {
+  color: #777;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.mealTypeTabs {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 9px;
+  margin-top: 14px;
+}
+
+.mealTypeTabs > button {
+  display: grid;
+  grid-template-columns: 34px 1fr auto;
+  min-width: 0;
+  align-items: center;
+  gap: 9px;
+  min-height: 65px;
+  padding: 10px 12px;
+  border: 1px solid #e4ddd5;
+  border-radius: 13px;
+  background: #fff;
+  color: #4d4d4d;
+  cursor: pointer;
+  text-align: left;
+  transition:
+    background 160ms ease,
+    border-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.mealTypeTabs > button > span:first-child {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border-radius: 10px;
+  background: #fff3e2;
+  color: #b87613;
+  font-size: 17px;
+}
+
+.mealTypeTabs > button > span:nth-child(2) {
+  display: grid;
+  min-width: 0;
+  gap: 2px;
+}
+
+.mealTypeTabs strong {
+  overflow: hidden;
+  color: #353535;
+  font-size: 12px;
+  font-weight: 900;
+  text-overflow: ellipsis;
+}
+
+.mealTypeTabs small {
+  overflow: hidden;
+  color: #999;
+  font-size: 8px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mealTypeTabs i {
+  display: grid;
+  width: 21px;
+  height: 21px;
+  place-items: center;
+  border-radius: 50%;
+  background: #f1efec;
+  color: #8d8d8d;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 900;
+}
+
+.mealTypeTabs .activeMealType {
+  border-color: #333;
+  box-shadow: inset 0 0 0 1px #333;
+}
+
+.mealTypeTabs .completedMealType {
+  border-color: #71b96d;
+  background: #eaf8e8;
+  box-shadow: none;
+}
+
+.mealTypeTabs .completedMealType > span:first-child {
+  background: #d4f0d2;
+  color: #2e8130;
+}
+
+.mealTypeTabs .completedMealType strong {
+  color: #286f29;
+}
+
+.mealTypeTabs .completedMealType small {
+  color: #579558;
+}
+
+.mealTypeTabs .completedMealType i {
+  background: #3a963a;
+  color: #fff;
+}
+
+.mealTypeTabs .activeMealType.completedMealType {
+  border-color: #2f8530;
+  box-shadow:
+    inset 0 0 0 1px #2f8530,
+    0 6px 15px rgba(47, 133, 48, 0.12);
+}
+
 .mealGrid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -614,8 +777,8 @@
 }
 
 .mealCard.selectedMeal {
-  border-color: rgba(240, 51, 40, 0.58);
-  box-shadow: 0 10px 25px rgba(240, 51, 40, 0.08);
+  border-color: rgba(52, 145, 52, 0.62);
+  box-shadow: 0 10px 25px rgba(52, 145, 52, 0.09);
 }
 
 .mealImage {
@@ -680,12 +843,32 @@
 }
 
 .nutrition {
-  display: flex;
-  gap: 13px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 5px;
   margin-top: 12px;
   color: #555;
+}
+
+.nutrition span {
+  display: grid;
+  gap: 1px;
+  min-width: 0;
+  padding: 6px 4px;
+  border-radius: 8px;
+  background: #faf7f3;
+  color: #888;
+  font-size: 8px;
+  font-weight: 700;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.nutrition strong {
+  color: #3e3e3e;
   font-size: 10px;
-  font-weight: 800;
+  font-weight: 900;
+  text-transform: none;
 }
 
 .nutrition span + span {
@@ -693,14 +876,7 @@
 }
 
 .nutrition span + span::before {
-  position: absolute;
-  top: 4px;
-  left: -8px;
-  width: 3px;
-  height: 3px;
-  border-radius: 50%;
-  background: #bbb;
-  content: "";
+  content: none;
 }
 
 .mealFooter {
@@ -1118,6 +1294,7 @@
 
 .packageDetails li {
   display: flex;
+  align-items: start;
   justify-content: space-between;
   gap: 10px;
   color: #757575;
@@ -1126,6 +1303,23 @@
 
 .packageDetails li strong {
   color: #333;
+}
+
+.packageMealInfo {
+  display: grid;
+  min-width: 0;
+  gap: 3px;
+}
+
+.packageMealInfo > span {
+  color: #565656;
+  font-weight: 800;
+}
+
+.packageMealInfo small {
+  color: #999;
+  font-size: 9px;
+  line-height: 1.4;
 }
 
 .packagePromise {
@@ -1491,6 +1685,12 @@
     flex-direction: column;
   }
 
+  .mealTypeHeading {
+    align-items: start;
+    flex-direction: column;
+    gap: 8px;
+  }
+
   .mealCard {
     display: block;
   }
@@ -1581,6 +1781,10 @@
 
   .dayTabs {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .mealTypeTabs {
+    grid-template-columns: 1fr;
   }
 
   .mealGrid {

@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import {
   type FormEvent,
   useMemo,
@@ -58,7 +59,7 @@ function ModeIcon({ mode }: { readonly mode: MealPrepMode }) {
   );
 }
 
-function CheckoutPanel({
+export function CheckoutPanel({
   onClose,
   order,
 }: {
@@ -183,7 +184,9 @@ function CustomMealBuilder({
 }: Pick<MealPrepDashboardProps, "days" | "meals" | "targets">) {
   const [cadence, setCadence] = useState<PlanCadence>("weekly");
   const [target, setTarget] = useState(7);
-  const [activeDay, setActiveDay] = useState<DayId>("monday");
+  const [activeDay, setActiveDay] = useState<DayId>("sunday");
+  const [activeMealType, setActiveMealType] =
+    useState<PrepMeal["category"]>("Breakfast");
   const [schedule, setSchedule] = useState<MealSchedule>(() =>
     createEmptySchedule(days),
   );
@@ -238,6 +241,19 @@ function CustomMealBuilder({
   function dayCount(dayId: DayId) {
     return Object.values(schedule[dayId]).reduce(
       (total, quantity) => total + quantity,
+      0,
+    );
+  }
+
+  function mealTypeCount(
+    dayId: DayId,
+    mealType: PrepMeal["category"],
+  ) {
+    return Object.entries(schedule[dayId]).reduce(
+      (total, [mealId, quantity]) => {
+        const meal = meals.find((item) => item.id === mealId);
+        return meal?.category === mealType ? total + quantity : total;
+      },
       0,
     );
   }
@@ -337,14 +353,23 @@ function CustomMealBuilder({
               return (
                 <button
                   aria-selected={activeDay === day.id}
-                  className={activeDay === day.id ? styles.activeDay : ""}
+                  className={[
+                    activeDay === day.id ? styles.activeDay : "",
+                    count > 0 ? styles.completedDay : "",
+                  ]
+                    .filter(Boolean)
+                    .join(" ")}
                   key={day.id}
                   onClick={() => setActiveDay(day.id)}
                   role="tab"
                   type="button"
                 >
                   <span>{day.shortLabel}</span>
-                  <small>{count > 0 ? `${count} selected` : "Add meals"}</small>
+                  <small>
+                    {count > 0
+                      ? `${count} ${count === 1 ? "meal" : "meals"}`
+                      : "Empty"}
+                  </small>
                 </button>
               );
             })}
@@ -356,12 +381,75 @@ function CustomMealBuilder({
               <h3>{days.find((day) => day.id === activeDay)?.label}</h3>
             </div>
             <span>
-              {selectedCount} of {target} meals selected
+              {dayCount(activeDay) > 0
+                ? `${dayCount(activeDay)} ${
+                    dayCount(activeDay) === 1 ? "meal" : "meals"
+                  } on this day`
+                : "No meals on this day"}
             </span>
           </div>
 
+          <div className={styles.mealTypeSection}>
+            <div className={styles.mealTypeHeading}>
+              <div>
+                <strong>Choose a meal time</strong>
+                <span>Fill breakfast, lunch and dinner separately.</span>
+              </div>
+              <small>
+                {selectedCount} of {target} total meals
+              </small>
+            </div>
+            <div
+              aria-label={`Meal time for ${
+                days.find((day) => day.id === activeDay)?.label
+              }`}
+              className={styles.mealTypeTabs}
+              role="tablist"
+            >
+              {(["Breakfast", "Lunch", "Dinner"] as const).map((mealType) => {
+                const count = mealTypeCount(activeDay, mealType);
+                return (
+                  <button
+                    aria-selected={activeMealType === mealType}
+                    className={[
+                      activeMealType === mealType
+                        ? styles.activeMealType
+                        : "",
+                      count > 0 ? styles.completedMealType : "",
+                    ]
+                      .filter(Boolean)
+                      .join(" ")}
+                    key={mealType}
+                    onClick={() => setActiveMealType(mealType)}
+                    role="tab"
+                    type="button"
+                  >
+                    <span aria-hidden="true">
+                      {mealType === "Breakfast"
+                        ? "☀"
+                        : mealType === "Lunch"
+                          ? "◐"
+                          : "☾"}
+                    </span>
+                    <span>
+                      <strong>{mealType}</strong>
+                      <small>
+                        {count > 0
+                          ? `${count} ${count === 1 ? "meal" : "meals"} added`
+                          : "Not selected"}
+                      </small>
+                    </span>
+                    <i aria-hidden="true">{count > 0 ? "✓" : "+"}</i>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
           <div className={styles.mealGrid}>
-            {meals.map((meal) => {
+            {meals
+              .filter((meal) => meal.category === activeMealType)
+              .map((meal) => {
               const quantity = quantityFor(activeDay, meal.id);
               return (
                 <article
@@ -377,7 +465,10 @@ function CustomMealBuilder({
                       sizes="(max-width: 650px) 90vw, (max-width: 1100px) 42vw, 260px"
                       src={meal.imageSrc}
                     />
-                    <span>{meal.category}</span>
+                    <span>
+                      {days.find((day) => day.id === activeDay)?.shortLabel} ·{" "}
+                      {meal.category}
+                    </span>
                   </div>
                   <div className={styles.mealBody}>
                     <div className={styles.mealNameRow}>
@@ -386,8 +477,18 @@ function CustomMealBuilder({
                     </div>
                     <p>{meal.description}</p>
                     <div className={styles.nutrition}>
-                      <span>{meal.calories} cal</span>
-                      <span>{meal.protein}g protein</span>
+                      <span>
+                        <strong>{meal.calories}</strong> cal
+                      </span>
+                      <span>
+                        <strong>{meal.carbohydrates}g</strong> carbs
+                      </span>
+                      <span>
+                        <strong>{meal.fat}g</strong> fat
+                      </span>
+                      <span>
+                        <strong>{meal.protein}g</strong> protein
+                      </span>
                     </div>
                     <div className={styles.mealFooter}>
                       <div className={styles.tags}>
@@ -431,7 +532,7 @@ function CustomMealBuilder({
                   </div>
                 </article>
               );
-            })}
+              })}
           </div>
         </section>
       </div>
@@ -532,21 +633,6 @@ function PremadeMealPlans({
   packages,
 }: Pick<MealPrepDashboardProps, "meals" | "packages">) {
   const [cadence, setCadence] = useState<PlanCadence>("weekly");
-  const [checkoutOrder, setCheckoutOrder] = useState<CheckoutOrder | null>(
-    null,
-  );
-
-  function reviewPackage(item: MealPackage) {
-    setCheckoutOrder({
-      title: item.name,
-      description: `${item.mealsPerWeek} chef-selected meals, delivered ${
-        cadence === "weekly" ? "every week" : "every four weeks"
-      }.`,
-      cadence,
-      amount: cadencePrice(item.pricePerWeek, cadence),
-      meals: item.mealsPerWeek * (cadence === "monthly" ? 4 : 1),
-    });
-  }
 
   return (
     <div className={styles.premadeWrap}>
@@ -611,21 +697,33 @@ function PremadeMealPlans({
                     );
                     return (
                       <li key={packageMeal.mealId}>
-                        <span>{meal?.name}</span>
+                        <span className={styles.packageMealInfo}>
+                          <span>{meal?.name}</span>
+                          {meal && (
+                            <small>
+                              {meal.calories} cal
+                              {" · "}
+                              {meal.carbohydrates}g carbs
+                              {" · "}
+                              {meal.fat}g fat
+                              {" · "}
+                              {meal.protein}g protein
+                            </small>
+                          )}
+                        </span>
                         <strong>× {packageMeal.quantity}</strong>
                       </li>
                     );
                   })}
                 </ul>
               </details>
-              <button
+              <Link
                 className={styles.primaryButton}
-                onClick={() => reviewPackage(item)}
-                type="button"
+                href={`/meal-prep/plans/${item.id}?cadence=${cadence}`}
               >
                 Choose this plan
                 <span aria-hidden="true">→</span>
-              </button>
+              </Link>
             </div>
           </article>
         ))}
@@ -649,12 +747,6 @@ function PremadeMealPlans({
         </div>
       </div>
 
-      {checkoutOrder && (
-        <CheckoutPanel
-          onClose={() => setCheckoutOrder(null)}
-          order={checkoutOrder}
-        />
-      )}
     </div>
   );
 }

@@ -5,13 +5,13 @@ import type {
 } from "../types/meal-prep.types";
 
 export const weekDays: readonly WeekDay[] = [
+  { id: "sunday", shortLabel: "Sun", label: "Sunday" },
   { id: "monday", shortLabel: "Mon", label: "Monday" },
   { id: "tuesday", shortLabel: "Tue", label: "Tuesday" },
   { id: "wednesday", shortLabel: "Wed", label: "Wednesday" },
   { id: "thursday", shortLabel: "Thu", label: "Thursday" },
   { id: "friday", shortLabel: "Fri", label: "Friday" },
   { id: "saturday", shortLabel: "Sat", label: "Saturday" },
-  { id: "sunday", shortLabel: "Sun", label: "Sunday" },
 ];
 
 export const prepMeals: readonly PrepMeal[] = [
@@ -23,6 +23,8 @@ export const prepMeals: readonly PrepMeal[] = [
     category: "Breakfast",
     price: 12.5,
     calories: 480,
+    carbohydrates: 42,
+    fat: 21,
     protein: 31,
     tags: ["High protein", "GF"],
   },
@@ -34,6 +36,8 @@ export const prepMeals: readonly PrepMeal[] = [
     category: "Breakfast",
     price: 10.5,
     calories: 390,
+    carbohydrates: 52,
+    fat: 14,
     protein: 16,
     tags: ["Vegan", "Fibre rich"],
   },
@@ -45,6 +49,8 @@ export const prepMeals: readonly PrepMeal[] = [
     category: "Lunch",
     price: 14.5,
     calories: 560,
+    carbohydrates: 58,
+    fat: 16,
     protein: 44,
     tags: ["High protein", "Balanced"],
   },
@@ -56,6 +62,8 @@ export const prepMeals: readonly PrepMeal[] = [
     category: "Lunch",
     price: 13,
     calories: 510,
+    carbohydrates: 66,
+    fat: 17,
     protein: 23,
     tags: ["Vegan", "GF"],
   },
@@ -67,6 +75,8 @@ export const prepMeals: readonly PrepMeal[] = [
     category: "Dinner",
     price: 16.5,
     calories: 620,
+    carbohydrates: 48,
+    fat: 27,
     protein: 46,
     tags: ["Omega 3", "GF"],
   },
@@ -78,6 +88,8 @@ export const prepMeals: readonly PrepMeal[] = [
     category: "Dinner",
     price: 16,
     calories: 680,
+    carbohydrates: 61,
+    fat: 24,
     protein: 48,
     tags: ["High protein", "Dairy free"],
   },

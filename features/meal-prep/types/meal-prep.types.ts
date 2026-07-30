@@ -24,6 +24,8 @@ export interface PrepMeal {
   readonly category: "Breakfast" | "Lunch" | "Dinner";
   readonly price: number;
   readonly calories: number;
+  readonly carbohydrates: number;
+  readonly fat: number;
   readonly protein: number;
   readonly tags: readonly string[];
 }
